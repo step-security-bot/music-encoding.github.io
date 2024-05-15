@@ -23,6 +23,11 @@ jobs:
     if: ${{ github.repository_owner == 'music-encoding' }}
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4 # v2.7.1
+        with:
+          egress-policy: audit
+
       - uses: technote-space/broken-link-checker-action@b8332d945b97f8b52eb8d7d889a1e0e37106c1a9 # ratchet:technote-space/broken-link-checker-action@v2
         with:
           TARGET: ${{ env.CHECK_WEBSITE }}
@@ -34,6 +39,11 @@ jobs:
     if: ${{ github.repository_owner == 'music-encoding' }}
     
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4 # v2.7.1
+        with:
+          egress-policy: audit
+
       - name: Set variables
         run: |
           if [[ "${{ github.event.inputs.branch }}" != '' ]] ; then
@@ -41,7 +51,7 @@ jobs:
             echo "CHECK_BRANCH=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
           fi
       - name: Checkout main repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           ref: ${{ env.CHECK_BRANCH }}
 
